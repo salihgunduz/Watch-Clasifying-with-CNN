@@ -9,3 +9,4 @@ Bu notebookta 10 tane kol saatinin resimlerinden küçük bir veri seti oluştur
 ## Kütüphaneler
 Uygulamımızı geliştirirken model oluşturmayı ve eğitmeyi oldukça basit hale getiren bir deep learning kütüphanesi olan **Keras**  kullandım. Keras ile ilgili dökümanlara [Buradan](https://keras.io/)  ulaşabilirsiniz.
 
+
