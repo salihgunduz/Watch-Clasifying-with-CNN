@@ -9,4 +9,17 @@ Bu notebookta 10 tane kol saatinin resimlerinden küçük bir veri seti oluştur
 ## Kütüphaneler
 Uygulamımızı geliştirirken model oluşturmayı ve eğitmeyi oldukça basit hale getiren bir deep learning kütüphanesi olan **Keras**  kullandım. Keras ile ilgili dökümanlara [Buradan](https://keras.io/)  ulaşabilirsiniz.
 
+```ruby
+import os
+import keras
+from keras.models import Sequential
+from keras.layers import Dense, Dropout, Flatten
+from keras.layers import Conv2D, MaxPooling2D
+from keras import backend as K
+import tensorflow as tf
+from keras.preprocessing.image import ImageDataGenerator
+import matplotlib.pyplot as plt
+import numpy as np
+```
+
 
