@@ -1,2 +1,2 @@
-# CNN_saat
-CNN ile saat resimlerinden model tespiti.
+
+# SAAT MODEL TESPİTİ
