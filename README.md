@@ -165,8 +165,8 @@ def show_images(images, cols = 1, titles = None,labels=None):
     plt.show()
      ```
 ```ruby     
-     show_images(x_test, cols = 1, titles =y_pred_test.argmax(axis=1) ,labels=y_test.argmax(axis=1))
-     ```
+show_images(x_test, cols = 1, titles =y_pred_test.argmax(axis=1) ,labels=y_test.argmax(axis=1))
+```
      
 ## Modelin ve Ağırlıkların Kaydedilmesi.
 ```ruby
@@ -175,5 +175,5 @@ def show_images(images, cols = 1, titles = None,labels=None):
      model_json = model.to_json()
      with open("model1.json", "w") as json_file:
      json_file.write(model_json)
-  ```    
+ ```    
    
