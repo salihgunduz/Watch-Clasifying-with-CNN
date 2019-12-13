@@ -41,7 +41,7 @@ K.set_session(K.tf.Session(config=cfg))
 ## Parametrelerin Belirlenmesi
 İşlem gücünü hafifletmek ve öğrenmeyi hızlandırmak için verilerimizi batch dediğimiz demetlere bölebiliriz. Görüntü boyutu 100x100 olarak ayarladım. Ağınızın perfomansına ve doğruluk oranına göre değiştirebilirsiniz. Doğru sonuca ulaşabiliyorsanız işlem hızını arttırmak açısından mümkün olduğunda küçük tutabiliriz. Epoch sayısı da yine denenerek bulunabilir. Epoch değerini yüksek tutmak eğitim süresini uzattığı gibi ağın ezberlemesine de (overfitting) sebep olabilir. Deneyerek uygun değeri bulabiliriz.
 
-```ruby
+```python
 train_batch_size=64 # Ekran kartımızın kaldırabileceği boyutta seçilmelidir. Aksi takdirde hata alırız.
 validation_batch_size=64
 image_width=100 # resim genişliği
@@ -54,7 +54,7 @@ number_of_classes=10  #sınıf sayısı tespit edeceğimiz saat sayısı 10'dur.
 Verilerin azlığı overfitting (ezberlerme) probeleminin en önemli nedenlerinden birisidir. Eğitimde kullanılan 8'er adet resmin  için yeterli olmadığı görülmüştür. Bu yüzden verileri arttırmaya karar verdim. internette yeteri kadar görüntü bulamadım. bu yüzden keras'ın veri arttırma yöntemlerini kullandım. Keras veri arttırma ile ilgili bilgilere [Buradan](https://keras.io/preprocessing/image/)  ulaşabilirsiniz.
 <img src="enlarge1.jpg" width="500">
 
-```ruby
+```python
 #resimleri yüklüyoruz.
 #resimleri klasörlerinden okuyarak data generator sayesinde çoğaltıp kullanacağımız değişkenlere atıyoruz.
 #resimleri döndürerek, kaydırarak, ışık ayarları ile oynayarak yeni resimler türetiyoruz.
@@ -91,7 +91,7 @@ test_batch=test_datagen.flow_from_directory('new_data/test',
 
 ## Modelimizin Oluşturulması
 İşin en önemli kısmı burasıdır. Tecrübe ve sezgiden faydalanarak verimize en uygun model seçilir. Çeşitli modeller üzerinde deneyler yapılır ve en uygun model tasarlanır. Modelimiz Convolutional olarak tasarlanmıştır . CNN resim işlemlerinde oldukça başarılı ve hızlıdır. Modelimizde işlem karmaşıklığını azaltmak(boyutları küçültmek) için max pooling katmanları kullanılmıştır. CNN' de overfitting problemlerini önlemek için dropout layerlarından faydalanılmıştır. Modelimizdeki parametreler önemlidir. Ara katmanlarda relu aktüvasyon fonksiyonu kullanırken çıkış katmanında softmax fonksiyonu kullanılmıştır. Verilerimiz kategorik olarak sınıflandırılmak istendiğinden loss fonksiyonu "categorical_crossentropy" seçilmiştir. optimazyon algoritması olarak ta momentum ve rsmpprop 'u bir arada uygulayan "adam" seçilmiştir. Modelinizin katman sayısı, ara katmanların boyutları,loss fonksiyonu, aktivasyon fonksiyonları modelinizin başarısını etkileyecektir. Bunların titizlikle tespit edilmesi gerekir.
-```ruby
+```python
 model = Sequential()
 model.add(Conv2D(32, kernel_size=(3, 3),activation='relu',input_shape=(image_width,image_height,3)))
 model.add(Dropout(0.5))
@@ -108,8 +108,9 @@ model.add(Dropout(0.3))
 model.add(Dense(number_of_classes, activation='softmax'))
 model.compile(loss='categorical_crossentropy',optimizer='Adam',metrics=['accuracy'])
 ```
-```ruby
+
 #Modelimizi fit ederek eğitime başlayabiliriz.
+```python
 H=model.fit_generator( 
     training_batch, 
     steps_per_epoch=300, #her çağda  kaç örnek türeteceğimizi belirliyoruz.
@@ -122,7 +123,7 @@ H=model.fit_generator(
 <img src="confusion.png">
 Çıktının birden fazla olduğu durumlarda modelin performansını görmemize yarar. Köşegendeki değerler doğru tahminleri gösterir.Köşegen dışında kalan değerler yanlışları gösterir. Eğittiğimiz model ile test verilerini predict edip hata matrisini çizdiriyoruz.
 
-```ruby
+```python
 x_test,y_test=test_batch.next()
 y_pred_test=model.predict(x_test)
 from sklearn.metrics import confusion_matrix
@@ -132,7 +133,7 @@ print(H.history.keys())
  ```
  ### Sonuç
 %90 üzeri başarı ile 10 saati tespit edebiliyoruz. Kaynakların kısıtlı olmasından dolayı saat sayısı ve dataset küçük seçildi. İmkanlar ve veri bulnuabilmesi durumunda daha büyük veriler üzerinde uygulanıp geliştirilebilir.Test verilerimizi predict ettikten sonra resimlerle beraber sonuçları göstermek için fonksiyonumuzu tanımlıyoruz. Verileri görselleştirmek için matplotlib kütüphanesinden faydalanıyoruz. 
-```ruby
+```python
 def show_images(images, cols = 1, titles = None,labels=None):
     """Resimleri figürde gösterir..
     
@@ -169,7 +170,7 @@ show_images(x_test, cols = 1, titles =y_pred_test.argmax(axis=1) ,labels=y_test.
 ```
      
 ## Modelin ve Ağırlıkların Kaydedilmesi.
-```ruby
+```python
   model.save_weights('model1_weights.h5')
      # serialize model to JSON
      model_json = model.to_json()
