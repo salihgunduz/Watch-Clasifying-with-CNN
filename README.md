@@ -118,3 +118,59 @@ H=model.fit_generator(
     validation_steps=10
     ) 
  ```
+## Test ve Hata Matrisi(confusion matrix)
+<img src="confusion.png">
+Çıktının birden fazla olduğu durumlarda modelin performansını görmemize yarar. Köşegendeki değerler doğru tahminleri gösterir.Köşegen dışında kalan değerler yanlışları gösterir. Eğittiğimiz model ile test verilerini predict edip hata matrisini çizdiriyoruz.
+
+```ruby
+x_test,y_test=test_batch.next()
+y_pred_test=model.predict(x_test)
+from sklearn.metrics import confusion_matrix
+cm=confusion_matrix(y_test.argmax(axis=1), y_pred_test.argmax(axis=1))
+print(cm)
+print(H.history.keys())
+ ```
+ ### Sonuç
+%90 üzeri başarı ile 10 saati tespit edebiliyoruz. Kaynakların kısıtlı olmasından dolayı saat sayısı ve dataset küçük seçildi. İmkanlar ve veri bulnuabilmesi durumunda daha büyük veriler üzerinde uygulanıp geliştirilebilir.Test verilerimizi predict ettikten sonra resimlerle beraber sonuçları göstermek için fonksiyonumuzu tanımlıyoruz. Verileri görselleştirmek için matplotlib kütüphanesinden faydalanıyoruz. 
+```ruby
+def show_images(images, cols = 1, titles = None,labels=None):
+    """Resimleri figürde gösterir..
+    
+    Parameters
+    ---------
+    images: np.arrays dizisidir.
+    
+    cols (Default = 1): figürdeki kolon sayısıdır.(n_images/float(cols))).
+    
+    titles: Her resmin başlığıdır.
+    """
+    assert((titles is None) or (len(images) == len(titles)))
+    n_images = len(images)
+    if titles is None: titles = ['Image (%d)' % i for i in range(1,n_images + 1)]
+    fig = plt.figure()
+    for n, (image, title) in enumerate(zip(images, titles)):
+        a = fig.add_subplot(cols, np.ceil(n_images/float(cols)), n + 1)
+        if image.ndim == 2:
+            plt.gray()
+        plt.imshow(image)
+        a.set_title('tahmin:' + str(titles[n]))
+        a.set_ylabel('model:' + str(labels[n]))
+        # Hide grid lines
+     
+        
+        # Hide axes ticks
+        a.set_xticks([])
+        a.set_yticks([])
+    fig.set_size_inches(np.array(fig.get_size_inches()) * n_images/2)
+    plt.show()
+     ```
+     
+     show_images(x_test, cols = 1, titles =y_pred_test.argmax(axis=1) ,labels=y_test.argmax(axis=1))
+     
+     ## Modelin ve Ağırlıkların Kaydedilmesi.
+     
+     model.save_weights('model1_weights.h5')
+     # serialize model to JSON
+     model_json = model.to_json()
+     with open("model1.json", "w") as json_file:
+     json_file.write(model_json)
