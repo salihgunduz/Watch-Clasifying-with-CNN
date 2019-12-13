@@ -164,13 +164,16 @@ def show_images(images, cols = 1, titles = None,labels=None):
     fig.set_size_inches(np.array(fig.get_size_inches()) * n_images/2)
     plt.show()
      ```
-     
+```ruby     
      show_images(x_test, cols = 1, titles =y_pred_test.argmax(axis=1) ,labels=y_test.argmax(axis=1))
+     ```
      
-     ## Modelin ve Ağırlıkların Kaydedilmesi.
-     
-     model.save_weights('model1_weights.h5')
+## Modelin ve Ağırlıkların Kaydedilmesi.
+```ruby
+  model.save_weights('model1_weights.h5')
      # serialize model to JSON
      model_json = model.to_json()
      with open("model1.json", "w") as json_file:
      json_file.write(model_json)
+  ```    
+   
