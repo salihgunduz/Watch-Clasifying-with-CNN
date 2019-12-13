@@ -163,8 +163,8 @@ def show_images(images, cols = 1, titles = None,labels=None):
         a.set_yticks([])
     fig.set_size_inches(np.array(fig.get_size_inches()) * n_images/2)
     plt.show()
-     ```
-```ruby     
+
+   
 show_images(x_test, cols = 1, titles =y_pred_test.argmax(axis=1) ,labels=y_test.argmax(axis=1))
 ```
      
