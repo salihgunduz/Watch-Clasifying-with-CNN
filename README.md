@@ -108,3 +108,13 @@ model.add(Dropout(0.3))
 model.add(Dense(number_of_classes, activation='softmax'))
 model.compile(loss='categorical_crossentropy',optimizer='Adam',metrics=['accuracy'])
 ```
+```ruby
+#Modelimizi fit ederek eğitime başlayabiliriz.
+H=model.fit_generator( 
+    training_batch, 
+    steps_per_epoch=300, #her çağda  kaç örnek türeteceğimizi belirliyoruz.
+    epochs=epochs, # kaç çağ olacağını belirtiyoruz yukarıda 10 olarak belirtmiştik.
+    validation_data=validation_batch, 
+    validation_steps=10
+    ) 
+ ```
