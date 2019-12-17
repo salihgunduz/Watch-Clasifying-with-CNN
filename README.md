@@ -170,7 +170,8 @@ def show_images(images, cols = 1, titles = None,labels=None):
    
 show_images(x_test, cols = 1, titles =y_pred_test.argmax(axis=1) ,labels=y_test.argmax(axis=1))
 ```
- <img src="examples.png">     
+<img src="examples.png">   
+ 
 ## Modelin ve Ağırlıkların Kaydedilmesi.
 ```python
   model.save_weights('model1_weights.h5')
