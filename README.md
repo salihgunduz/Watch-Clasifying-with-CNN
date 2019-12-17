@@ -120,6 +120,7 @@ H=model.fit_generator(
     validation_steps=10
     ) 
  ```
+ <img src="accuracy_per_epoch.png">
 ## Test ve Hata Matrisi(confusion matrix)
 <img src="confusion.png">
 Çıktının birden fazla olduğu durumlarda modelin performansını görmemize yarar. Köşegendeki değerler doğru tahminleri gösterir.Köşegen dışında kalan değerler yanlışları gösterir. Eğittiğimiz model ile test verilerini predict edip hata matrisini çizdiriyoruz.
