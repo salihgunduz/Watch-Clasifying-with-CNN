@@ -94,9 +94,8 @@ test_batch=test_datagen.flow_from_directory('new_data/test',
 İşin en önemli kısmı burasıdır. Tecrübe ve sezgiden faydalanarak verimize en uygun model seçilir. Çeşitli modeller üzerinde deneyler yapılır ve en uygun model tasarlanır. Modelimiz Convolutional olarak tasarlanmıştır . CNN resim işlemlerinde oldukça başarılı ve hızlıdır. Modelimizde işlem karmaşıklığını azaltmak(boyutları küçültmek) için max pooling katmanları kullanılmıştır. CNN' de overfitting problemlerini önlemek için dropout layerlarından faydalanılmıştır. Modelimizdeki parametreler önemlidir. Ara katmanlarda relu aktivasyon fonksiyonu kullanırken çıkış katmanında softmax fonksiyonu kullanılmıştır. Verilerimiz kategorik olarak sınıflandırılmak istendiğinden loss fonksiyonu "categorical_crossentropy" seçilmiştir. optimazyon algoritması olarak ta momentum ve rsmpprop 'u bir arada uygulayan "adam" seçilmiştir. Modelinizin katman sayısı, ara katmanların boyutları,loss fonksiyonu, aktivasyon fonksiyonları modelinizin başarısını etkileyecektir. Bunların titizlikle tespit edilmesi gerekir.
 ```python
 model = Sequential()
-model.add(Conv2D(32, kernel_size=(3, 3),activation='
-
-u',input_shape=(image_width,image_height,3)))
+model.add(Conv2D(32, kernel_size=(3, 3),activation='relu'
+input_shape=(image_width,image_height,3)))
 model.add(Dropout(0.5))
 model.add(Conv2D(128, (3, 3), activation='relu'))
 model.add(MaxPooling2D(pool_size=(2, 2)))
