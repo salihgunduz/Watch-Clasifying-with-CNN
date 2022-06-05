@@ -1,13 +1,14 @@
 
-# SAAT MODEL TESPİTİ
+# WATCH MODEL RECOGNITION FROM IMAGES
 
-  ## Giriş
+  ## Intrıduction
 
-Bu notebookta 10 tane kol saatinin resimlerinden küçük bir veri seti oluşturdum. Veri setinde train,validation, test  isimli 3 klasör bulunuyor. Her bir saatten 12 adet resim bulunmaktadır. Resimler internetten elde edilmiştir. 8 resim eğitim ,2 resim doğrulama ve 2 resimde test için kullanılmıştır. Amacımız saat resimlerinden saatin hangi marka ve model olduğunu tespit etmektir.
+In this notebook, I have created a small watch image dataset for 10 watches. Data set includes train, test and validation folders. There are 12 images for each watch. I used 8 image for train, 2 images for validation and 2 images for testing. Our aim is recognizing watch brand and model. 
+
 ### Emporio Armani - Ar1971 <img src="saat.jpg" width="100">
 
 ## Kütüphaneler
-Uygulamımızı geliştirirken model oluşturmayı ve eğitmeyi oldukça basit hale getiren bir deep learning kütüphanesi olan **Keras**  kullandım. Keras ile ilgili dökümanlara [Buradan](https://keras.io/)  ulaşabilirsiniz.
+I utilized from Keras for development. You can reach documents for Keras from [here](https://keras.io/).
 
 ```python
 import os
