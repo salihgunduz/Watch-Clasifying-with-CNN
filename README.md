@@ -7,7 +7,7 @@ In this notebook, I have created a small watch image dataset for 10 watches. Dat
 
 ### Emporio Armani - Ar1971 <img src="saat.jpg" width="100">
 
-## Kütüphaneler
+## Libraries
 I utilized from Keras for development. You can reach documents for Keras from [here](https://keras.io/).
 
 ```python
@@ -23,7 +23,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 ```
 
-## CPU yerine GPU kullanımı
+## GPU Usage
+We need more processing power for training with images. The input of the model is 100 x 100 px images. The images are RGB and our input size will be 100 x 100 x 3 x number_of_samples.
 Uygulamamız görüntüler üzerinde çalışacağı için oldukça fazla işlem gücüne iytiyaç duyacağız. Ağımıza girdi olarak 100 px * 100px görüntüler vereceğiz. Görüntünün RGB kanallarını, örnek sayımızı da düşünürsek girdimiz 100x100x3xörnek_sayısı boyutunda olacaktır. Bir de epoch(çağ) dediğimiz döngü sayısını da hesaba katarsak bu kadar küçük bir veri setinde bile oldukça fazla işlem yapılacaktır. Bu işlemleri daha hızlı yapabilmek için CPU kullanmak yerine bilgisayarımızın paralel işlem gücü daha yüksek olan GPU'sunu kullanacağız. Bunu yapabilmek için Tensorflow GPU kurulumu yapmamız gerekiyor. Siz de ekran kartınızın Cuda Toolkiti destekleyelip destelemediğine [Buradan](https://developer.nvidia.com/cuda-gpus) bakabilirsiniz. Aşağıda gerekli kütüphaneyi çağırıp Nvidia ekran kartımı eğitim için belirledim.
 
 # GPU seçimi yapıyoruz.
