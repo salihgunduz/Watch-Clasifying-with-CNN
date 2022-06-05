@@ -51,18 +51,17 @@ epochs=10  #çağ sayısı
 number_of_classes=10  #sınıf sayısı tespit edeceğimiz saat sayısı 10'dur.
 ```
 
-## Keras Data Augmentation (Veri Çoğaltma)
+## Keras Data Augmentation 
 Our data set is very small, this sittuation may cause overfitting, so we can increase data by data augmentation technic. You can reach information abaout data augmentation from [here](https://keras.io/preprocessing/image/)  .
 <img src="enlarge1.jpg" width="500">
 
 ```python
-#deneme
-#resimleri yüklüyoruz.
-#resimleri klasörlerinden okuyarak data generator sayesinde çoğaltıp kullanacağımız değişkenlere atıyoruz.
-#resimleri döndürerek, kaydırarak, ışık ayarları ile oynayarak yeni resimler türetiyoruz.
-# Resimleri Çok fazla bozmamaya dikkat edelim.
+
+#loading images
+#Augmenting data by shifting, rotating and change luminance.
+# Be carefull at data augmentation step. 
 train_datagen = ImageDataGenerator( 
-        rescale=1. / 255,  #Normalizasyon yapıyoruz.
+        rescale=1. / 255,  #Normalizing inputs.
         rotation_range=360,
         width_shift_range=0.2,
         height_shift_range=0.2,
@@ -91,8 +90,9 @@ test_batch=test_datagen.flow_from_directory('new_data/test',
                                             )
 ```
 
-## Modelimizin Oluşturulması
-İşin en önemli kısmı burasıdır. Tecrübe ve sezgiden faydalanarak verimize en uygun model seçilir. Çeşitli modeller üzerinde deneyler yapılır ve en uygun model tasarlanır. Modelimiz Convolutional olarak tasarlanmıştır . CNN resim işlemlerinde oldukça başarılı ve hızlıdır. Modelimizde işlem karmaşıklığını azaltmak(boyutları küçültmek) için max pooling katmanları kullanılmıştır. CNN' de overfitting problemlerini önlemek için dropout layerlarından faydalanılmıştır. Modelimizdeki parametreler önemlidir. Ara katmanlarda relu aktivasyon fonksiyonu kullanırken çıkış katmanında softmax fonksiyonu kullanılmıştır. Verilerimiz kategorik olarak sınıflandırılmak istendiğinden loss fonksiyonu "categorical_crossentropy" seçilmiştir. optimazyon algoritması olarak ta momentum ve rsmpprop 'u bir arada uygulayan "adam" seçilmiştir. Modelinizin katman sayısı, ara katmanların boyutları,loss fonksiyonu, aktivasyon fonksiyonları modelinizin başarısını etkileyecektir. Bunların titizlikle tespit edilmesi gerekir.
+## Setting up the model
+We use CNN. We utilize max pooling, dropout and relu activation function. Our loss fuction is categorical cross entrophy.
+
 ```python
 model = Sequential()
 model.add(Conv2D(32, kernel_size=(3, 3),activation='relu',input_shape=(image_width,image_height,3)))
@@ -111,7 +111,7 @@ model.add(Dense(number_of_classes, activation='softmax'))
 model.compile(loss='categorical_crossentropy',optimizer='Adam',metrics=['accuracy'])
 ```
 
-#Modelimizi fit ederek eğitime başlayabiliriz.
+#Fitting the model
 ```python
 H=model.fit_generator( 
     training_batch, 
@@ -122,9 +122,9 @@ H=model.fit_generator(
     ) 
  ```
  <img src="accuracy_per_epoch.png">
-## Test ve Hata Matrisi(confusion matrix)
+## Confusion matrix
 <img src="confusion.png">
-Çıktının birden fazla olduğu durumlarda modelin performansını görmemize yarar. Köşegendeki değerler doğru tahminleri gösterir.Köşegen dışında kalan değerler yanlışları gösterir. Eğittiğimiz model ile test verilerini predict edip hata matrisini çizdiriyoruz.
+
 
 ```python
 x_test,y_test=test_batch.next()
@@ -134,8 +134,8 @@ cm=confusion_matrix(y_test.argmax(axis=1), y_pred_test.argmax(axis=1))
 print(cm)
 print(H.history.keys())
  ```
- ### Sonuç
-%90 üzeri başarı ile 10 saati tespit edebiliyoruz. Kaynakların kısıtlı olmasından dolayı saat sayısı ve dataset küçük seçildi. İmkanlar ve veri bulnuabilmesi durumunda daha büyük veriler üzerinde uygulanıp geliştirilebilir.Test verilerimizi predict ettikten sonra resimlerle beraber sonuçları göstermek için fonksiyonumuzu tanımlıyoruz. Verileri görselleştirmek için matplotlib kütüphanesinden faydalanıyoruz. 
+ ### Results
+We can predict with %90 accuracy. 
 ```python
 def show_images(images, cols = 1, titles = None,labels=None):
     """Resimleri figürde gösterir..
@@ -173,7 +173,7 @@ show_images(x_test, cols = 1, titles =y_pred_test.argmax(axis=1) ,labels=y_test.
 ```
 <img src="examples.png">   
  
-## Modelin ve Ağırlıkların Kaydedilmesi.
+## Saving Models
 ```python
   model.save_weights('model1_weights.h5')
      # serialize model to JSON
