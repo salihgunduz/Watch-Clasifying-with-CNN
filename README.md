@@ -1,7 +1,7 @@
 
 # WATCH MODEL RECOGNITION FROM IMAGES
 
-  ## Intrıduction
+  ## Introduction
 
 In this notebook, I have created a small watch image dataset for 10 watches. Data set includes train, test and validation folders. There are 12 images for each watch. I used 8 image for train, 2 images for validation and 2 images for testing. Our aim is recognizing watch brand and model. 
 
